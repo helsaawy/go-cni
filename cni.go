@@ -247,9 +247,7 @@ func (c *libcni) Remove(ctx context.Context, id string, path string, opts ...Nam
 			// https://github.com/containernetworking/plugins/issues/210
 			// TODO(random-liu): Remove the error handling when the issue is
 			// fixed and the CNI spec v0.6.0 support is deprecated.
-			// NOTE(claudiub): Some CNIs could return a "not found" error, which could mean that
-			// it was already deleted.
-			if (path == "" && strings.Contains(err.Error(), "no such file or directory")) || strings.Contains(err.Error(), "not found") {
+			if path == "" && strings.Contains(err.Error(), "no such file or directory") {
 				continue
 			}
 			return err
